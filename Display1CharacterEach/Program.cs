@@ -11,6 +11,8 @@ namespace Display1CharacterEach
     {
         static void Main(string[] args)
         {
+            if (args.Length >= 2)
+                args[1]=args[1].Replace("space", " ");
             Console.WriteLine("Setting");
             Console.WriteLine("1.Text setting");
             if (!File.Exists("DisplayText.txt"))
@@ -31,7 +33,7 @@ namespace Display1CharacterEach
             }
             string Text = File.ReadAllText("DisplayText.txt");
             int Delay = -1;
-            string _SkipChar = "";
+            string SkipChar_ = "";
             Console.WriteLine("2.Delay setting");
             if (args.Count() >= 1)
                 try
@@ -53,35 +55,38 @@ namespace Display1CharacterEach
                     Console.WriteLine("Failed to set delay. Please try again.");
                 }
             Console.WriteLine("3.Skip delay setting");
-            if (args.Count() >= 2)
-                try
-                {
-                    char SkipChar_ = Convert.ToChar(args[1].Remove(0, 1).Remove(1, 1));//1文字である必要
-                    _SkipChar = Convert.ToString(SkipChar_);
-                }
-                catch
-                {
-                    Console.WriteLine("Failed to set skip character.");
-                }
-            while (_SkipChar == "")
+            try//if (args.Count() >= 2) 無理やり処理統一
             {
-                try
-                {
-                    Console.WriteLine("Enter one character to skip delay or \"Enter\"");
-                    string SkipChar__ = Console.ReadLine();
-                    if (SkipChar__ == "")
-                        break;
-                    char SkipChar_ = Convert.ToChar(SkipChar__);
-                    _SkipChar = Convert.ToString(SkipChar_);
-                }
-                catch
-                {
-                    Console.WriteLine("Failed to set one character to skip delay. Must be one character or null. Please try again.");
-                }
+                char SkipChar__ = Convert.ToChar(args[1]);//1文字である必要
+                SkipChar_ = Convert.ToString(SkipChar__);
             }
-            if (_SkipChar != "")
+            catch
             {
-                char SkipChar = Convert.ToChar(_SkipChar);
+                if (args.Count() >= 2)
+                    if (args[1] != "null")
+                        Console.WriteLine("Failed to set skip character.");
+                while (SkipChar_ == "")
+                    try
+                    {
+                        if (args.Count() >= 2)
+                            if (args[1] == "null")
+                                break;
+                        Console.WriteLine("Enter one character to skip delay or \"Enter\"");
+                        string SkipChar__ = Console.ReadLine();
+                        if (SkipChar__ == "")
+                            break;
+                        char SkipChar___ = Convert.ToChar(SkipChar__);
+                        SkipChar_ = Convert.ToString(SkipChar___);
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Failed to set one character to skip delay. Must be one character or null. Please try again.");
+                    }
+            }
+
+            if (SkipChar_ != "")
+            {
+                char SkipChar = Convert.ToChar(SkipChar_);
                 Console.WriteLine("Preparing for display...");
                 if (args.Count() == 0)
                     Thread.Sleep(1000);

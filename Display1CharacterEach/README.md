@@ -12,11 +12,13 @@
 
 ## おまけ
 
-引数の1番目、2番目に設定2番目、3番目を設定できます。3番目は""の中に入力してください(例:"x")。
+引数の1番目、2番目に設定2番目、3番目を設定できます。3番目は空白の場合"space"、無効にする場合"null"と入力してください。
 
 設定した場合1番目の設定もスキップします。
 
-例:Display1CharacterEach.exe 1 " "
+例:Display1CharacterEach.exe 1 -
+
+例:Display1CharacterEach.exe 5 space
 
 
 # 更新履歴
