@@ -21,9 +21,12 @@
 例:Display1CharacterEach.exe 5 space
 
 
+公開ページ:https://github.com/Ichihai1415/Display1CharacterEach/releases
+
 # 更新履歴
 
-## v1.0.1 2023/01/23
+## v1.0.1 
+2023/01/23
 
 遅延スキップ文字を変更可能に
 
@@ -32,5 +35,6 @@
 各文章修正
 
 ## v1.0.0
+2023/01/21
 
 初リリース
