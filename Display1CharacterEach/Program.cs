@@ -12,7 +12,7 @@ namespace Display1CharacterEach
         static void Main(string[] args)
         {
             if (args.Length >= 2)
-                args[1]=args[1].Replace("space", " ");
+                args[1] = args[1].Replace("space", " ");
             Console.WriteLine("Setting");
             Console.WriteLine("1.Text setting");
             if (!File.Exists("DisplayText.txt"))
@@ -60,36 +60,51 @@ namespace Display1CharacterEach
                 char SkipChar__ = Convert.ToChar(args[1]);//1文字である必要
                 SkipChar_ = Convert.ToString(SkipChar__);
             }
-            catch
+            catch//spaceは置換済み
             {
                 if (args.Count() >= 2)
-                    if (args[1] != "null")
-                        Console.WriteLine("Failed to set skip character.");
+                    if (args[1] != "null" && args[1] != "byte")
+                        Console.WriteLine("Failed to set one character to skip delay.");
                 while (SkipChar_ == "")
                     try
                     {
                         if (args.Count() >= 2)
                             if (args[1] == "null")
                                 break;
-                        Console.WriteLine("Enter one character to skip delay or \"Enter\"");
+                            else if (args[1] == "byte")
+                            {
+                                byte[] TextBinaly = System.Text.Encoding.UTF8.GetBytes(Text);
+                                Text = "";
+                                foreach (byte TextBinaly_ in TextBinaly)
+                                    Text += TextBinaly_;
+                                break;
+                            }
+                        Console.WriteLine("Enter one character to skip delay or \"byte\" to display binary(UTF-8) or　\"Enter\" to disable.");
                         string SkipChar__ = Console.ReadLine();
+                        if (SkipChar__.Contains("byte"))
+                        {
+                            byte[] TextBinaly = System.Text.Encoding.UTF8.GetBytes(Text);
+                            Text = "";
+                            foreach (byte TextBinaly_ in TextBinaly)
+                                Text += TextBinaly_;
+                            break;
+                        }
                         if (SkipChar__ == "")
                             break;
-                        char SkipChar___ = Convert.ToChar(SkipChar__);
+                        char SkipChar___ = Convert.ToChar(SkipChar__);//できるかチェック
                         SkipChar_ = Convert.ToString(SkipChar___);
                     }
                     catch
                     {
-                        Console.WriteLine("Failed to set one character to skip delay. Must be one character or null. Please try again.");
+                        Console.WriteLine("Failed to set one character to skip delay. Must be one character or \"byte\" or null. Please try again.");
                     }
             }
-
+            Console.WriteLine("Preparing for display...");
+            if (args.Count() == 0)
+                Thread.Sleep(1000);
             if (SkipChar_ != "")
             {
                 char SkipChar = Convert.ToChar(SkipChar_);
-                Console.WriteLine("Preparing for display...");
-                if (args.Count() == 0)
-                    Thread.Sleep(1000);
                 while (true)
                 {
                     string _Text = Text;
@@ -105,9 +120,6 @@ namespace Display1CharacterEach
             }
             else
             {
-                Console.WriteLine("Preparing for display...");
-                if (args.Count() == 0)
-                    Thread.Sleep(1000);
                 while (true)
                 {
                     string _Text = Text;
